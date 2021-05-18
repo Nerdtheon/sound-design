@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -15,19 +16,17 @@ public class PlayerManager : MonoBehaviour
 
     public float altitude;
     public int goldScore = 0;
-    public int health = 10;
+    public int health = 2;
 
     public Transform m_Transform;
-    public Text healthUI;
-    public Text goldUI;
     public Text depthUI;
+    public Text goldScoreUI;
     
     void Update()
     {
         altitude = m_Transform.position.y;
 
-        goldUI.text = goldScore.ToString();
-        healthUI.text = health.ToString();
+        goldScoreUI.text = goldScore.ToString("0");
         depthUI.text = altitude.ToString("0");
 
         if (altitude >= 30 && altitude < 40)
@@ -83,7 +82,8 @@ public class PlayerManager : MonoBehaviour
 
             alarmSoundPlayed = false;
         }
-        
+
+        FailState();
     }
 
     void OnTriggerEnter(Collider other)
@@ -98,11 +98,18 @@ public class PlayerManager : MonoBehaviour
 
         else if (other.tag == "Obstacle")
         {
-
             pipeHitSound.Play();
             health -= 1;
 
             Destroy(other.gameObject);
+        }
+    }
+
+    void FailState()
+    {
+        if (health <= 0)
+        {
+            SceneManager.LoadScene("FailMenu");
         }
     }
 }

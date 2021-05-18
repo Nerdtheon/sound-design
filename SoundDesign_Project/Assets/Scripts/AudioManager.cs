@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource lightOff;
     public AudioClip lightOffClip;
     public AudioSource heatSound;
+    public AudioSource lightOnSound;
 
     [Header("Altitude Tracker")]
     //Player's y position
@@ -25,8 +26,11 @@ public class AudioManager : MonoBehaviour
     //Keeps track of the light status
     public bool lightsOff;
 
+    public Animator heatRising;
+
     private bool lightSoundPlayed;
     private bool heatSoundPlayed;
+    private bool lightOnSoundPlayed;
 
     public float heatSoundStart = 10;
     public float heatSoundEnd = 0;
@@ -34,6 +38,8 @@ public class AudioManager : MonoBehaviour
     void Start()
     {     
         lightCountdown = lightOnTimer;
+
+        lightOnSoundPlayed = true;
     }
 
     // Update is called once per frame
@@ -87,6 +93,7 @@ public class AudioManager : MonoBehaviour
         }
         else if (lightCountdown <= 0 && lightsOff == true)
         {
+            heatRising.Play("Heating", -1, 0f);
             lightsOff = false;
             lightCountdown = lightOnTimer;
         }
@@ -98,10 +105,12 @@ public class AudioManager : MonoBehaviour
         {
             darkImage.enabled = true;
         }
-        else
+        else if (!lightOnSoundPlayed)
         {
+            lightOnSound.Play();
             darkImage.enabled = false;
             lightSoundPlayed = false;
+            lightOnSoundPlayed = true;
         }
 
     }
@@ -112,6 +121,7 @@ public class AudioManager : MonoBehaviour
         {
             lightOff.Play();
             lightSoundPlayed = true;
+            lightOnSoundPlayed = false;
         }
     }
 }

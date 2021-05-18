@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedSoundNormal: {fileID: 0}
+  speedMeter: {fileID: 0}
   rotationSpeed: 15
   playerSpeedSlow: 5
   playerSpeedMid: 10
@@ -155,11 +156,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCollectSound: {fileID: 0}
+  pipeHitSound: {fileID: 0}
   alarmHighSound: {fileID: 0}
   alarmDeepSound: {fileID: 0}
   altitude: 0
   goldScore: 0
-  health: 10
+  health: 2
   m_Transform: {fileID: 3728543081770925299}
   healthUI: {fileID: 0}
   goldUI: {fileID: 0}
